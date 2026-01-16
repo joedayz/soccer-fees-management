@@ -1,6 +1,7 @@
 package com.soccerfees.micronaut
 
 import com.soccerfees.common.domain.Expense
+import com.soccerfees.common.domain.Payment
 import com.soccerfees.common.domain.PaymentType
 import com.soccerfees.common.domain.Player
 import jakarta.inject.Singleton

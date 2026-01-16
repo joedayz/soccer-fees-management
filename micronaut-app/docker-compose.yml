@@ -16,14 +16,20 @@ services:
       context: ..
       dockerfile: ./micronaut-app/Dockerfile
     environment:
-      PORT: 8082
+      PORT: 8080
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: soccer_fees
       DB_USER: postgres
       DB_PASSWORD: postgres
+      MICRONAUT_SERVER_PORT: 8080
+      DATASOURCES_DEFAULT_URL: jdbc:postgresql://db:5432/soccer_fees
+      DATASOURCES_DEFAULT_USERNAME: postgres
+      DATASOURCES_DEFAULT_PASSWORD: postgres
+      DATASOURCES_DEFAULT_DRIVERCLASSNAME: org.postgresql.Driver
+      DATASOURCES_DEFAULT_MAXIMUMPOOLSIZE: 8
     ports:
-      - "8082:8082"
+      - "8082:8080"
     depends_on:
       - db
   frontend:

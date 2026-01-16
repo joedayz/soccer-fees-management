@@ -17,3 +17,6 @@
 # OS files
 .DS_Store
 Thumbs.db
+
+# Private notes
+GUIA_KTOR_PRIVADA.md

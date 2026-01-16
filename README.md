@@ -76,6 +76,24 @@ podman compose up --build
 - `POST /api/expenses`
 - `GET /api/summary?year=YYYY&month=MM`
 
+## Cómo funciona Ktor en este proyecto
+
+Ktor es un framework **ligero y explícito**: tú registras los plugins y defines las rutas en código Kotlin. No hay anotaciones tipo Spring ni auto‑configuración pesada. Aquí se ve el flujo principal:
+
+- **Arranque del servidor**: `ktor-app/src/main/kotlin/com/soccerfees/ktor/Application.kt` usa `embeddedServer(Netty, port)` y llama a `module()`.
+- **Plugins**: en `module()` se instala `ContentNegotiation` con Jackson y `StatusPages` para manejar errores de validación.
+- **Routing**: las rutas están declaradas con `routing { route("/api") { ... } }`. Cada endpoint usa `call.receive<T>()` para leer JSON y `call.respond(...)` para responder.
+- **Capa de datos**: `DatabaseFactory` crea un `HikariDataSource` leyendo variables de entorno. `PaymentsRepository` usa SQL directo (JDBC) para CRUD y reportes.
+
+### Equivalencias con Spring/Quarkus
+
+- **Controllers**: en Ktor no hay `@RestController`. Se usan funciones y rutas declarativas.
+- **Inyección de dependencias**: en este ejemplo no hay DI; se instancia el repositorio manualmente dentro de `module()`.
+- **Configuración**: en lugar de `application.yml`, Ktor lee variables de entorno directamente (se puede integrar con `application.conf` si quieres).
+- **Serialización**: Ktor usa un plugin (`ContentNegotiation`) para JSON; en Spring es auto‑configurado por Jackson.
+
+Si quieres, puedo agregar una versión con DI (Koin) y `application.conf` para que tus alumnos vean una estructura más “enterprise”.
+
 ## Datos de ejemplo
 
 Crear socio:
