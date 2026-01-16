@@ -35,7 +35,7 @@ fun Application.module() {
     }
     install(StatusPages) {
         exception<IllegalArgumentException> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, mapOf(\"error\" to (cause.message ?: \"invalid request\")))
+            call.respond(HttpStatusCode.BadRequest, mapOf("error" to (cause.message ?: "invalid request")))
         }
     }
 
