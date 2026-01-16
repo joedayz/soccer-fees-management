@@ -114,25 +114,39 @@ function App() {
         <p>Control mensual de socios e invitados</p>
       </header>
       <main>
-        {error && <div className="card">{error}</div>}
+        {error && <div className="alert">{error}</div>}
         <div className="grid">
           <section className="card">
             <h3>Mes en revisión</h3>
+            <small>Selecciona el mes a revisar</small>
             <label>Año</label>
             <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} />
             <label>Mes</label>
             <input type="number" min="1" max="12" value={month} onChange={(e) => setMonth(Number(e.target.value))} />
-            <p className="badge">{monthLabel}</p>
+            <div style={{ marginTop: '12px' }}>
+              <span className="badge">{monthLabel}</span>
+            </div>
             {summary && (
-              <ul className="list">
-                <li>Ingresos: S/ {summary.income}</li>
-                <li>Gastos: S/ {summary.expenses}</li>
-                <li>Balance: S/ {summary.balance}</li>
-              </ul>
+              <div className="summary">
+                <div className="summary-item">
+                  <span>Ingresos</span>
+                  <strong>S/ {summary.income}</strong>
+                </div>
+                <div className="summary-item">
+                  <span>Gastos</span>
+                  <strong>S/ {summary.expenses}</strong>
+                </div>
+                <div className="summary-item">
+                  <span>Balance</span>
+                  <strong>{summary.balance >= 0 ? 'S/ ' : '-S/ '}{Math.abs(summary.balance)}</strong>
+                </div>
+              </div>
             )}
           </section>
+
           <section className="card">
             <h3>Registrar socio</h3>
+            <small>Socio activo con pagos mensuales</small>
             <form onSubmit={submitPlayer}>
               <label>Nombre</label>
               <input value={playerName} onChange={(e) => setPlayerName(e.target.value)} required />
@@ -141,8 +155,10 @@ function App() {
               <button type="submit">Guardar</button>
             </form>
           </section>
+
           <section className="card">
             <h3>Registrar pago</h3>
+            <small>Socios o invitados por lunes</small>
             <form onSubmit={submitPayment}>
               <label>Tipo</label>
               <select value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
@@ -163,8 +179,10 @@ function App() {
               <button type="submit">Registrar</button>
             </form>
           </section>
+
           <section className="card">
             <h3>Registrar gasto</h3>
+            <small>Alquiler, pelotas, chalecos, etc.</small>
             <form onSubmit={submitExpense}>
               <label>Fecha</label>
               <input type="date" value={expenseDate} onChange={(e) => setExpenseDate(e.target.value)} required />
@@ -175,16 +193,31 @@ function App() {
               <button type="submit">Registrar</button>
             </form>
           </section>
-          <section className="card">
+
+          <section className="card" style={{ gridColumn: '1 / -1' }}>
             <h3>Pagos del mes</h3>
-            <ul className="list">
-              {payments.map((payment) => (
-                <li key={payment.id}>
-                  {payment.paidAt} - S/ {payment.amount}
-                  <span className="badge">{payment.type}</span>
-                </li>
-              ))}
-            </ul>
+            {payments.length === 0 ? (
+              <div className="empty">Sin pagos registrados en este mes.</div>
+            ) : (
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Tipo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {payments.map((payment) => (
+                    <tr key={payment.id}>
+                      <td>{payment.paidAt}</td>
+                      <td>S/ {payment.amount}</td>
+                      <td><span className="badge">{payment.type}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </section>
         </div>
       </main>
