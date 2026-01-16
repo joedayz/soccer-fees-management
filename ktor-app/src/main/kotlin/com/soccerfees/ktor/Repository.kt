@@ -64,11 +64,12 @@ class PaymentsRepository(private val dataSource: DataSource) {
         return payment
     }
 
-    fun listPayments(yearMonth: YearMonth): List<Payment> = dataSource.useConnection { connection ->
+    fun listPayments(yearMonth: YearMonth): List<PaymentResponse> = dataSource.useConnection { connection ->
         connection.prepareStatement(
             """
-            SELECT id, player_id, paid_at, amount, type
-            FROM payments
+            SELECT p.id, p.player_id, p.paid_at, p.amount, p.type, pl.name AS player_name
+            FROM payments p
+            LEFT JOIN players pl ON p.player_id = pl.id
             WHERE EXTRACT(YEAR FROM paid_at) = ? AND EXTRACT(MONTH FROM paid_at) = ?
             ORDER BY paid_at
             """.trimIndent()
@@ -76,12 +77,13 @@ class PaymentsRepository(private val dataSource: DataSource) {
             stmt.setInt(1, yearMonth.year)
             stmt.setInt(2, yearMonth.monthValue)
             stmt.executeQuery().use { rs ->
-                val results = mutableListOf<Payment>()
+                val results = mutableListOf<PaymentResponse>()
                 while (rs.next()) {
                     results.add(
-                        Payment(
+                        PaymentResponse(
                             rs.getObject("id", UUID::class.java),
                             rs.getObject("player_id", UUID::class.java),
+                            rs.getString("player_name"),
                             rs.getObject("paid_at", LocalDate::class.java),
                             rs.getBigDecimal("amount"),
                             PaymentType.valueOf(rs.getString("type"))

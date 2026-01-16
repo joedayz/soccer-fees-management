@@ -4,16 +4,198 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Soccer Fees Manager</title>
-    <link rel="stylesheet" href="style.css?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #eef2ff;
+        --card: #ffffff;
+        --muted: #5b6472;
+        --primary: #2563eb;
+        --primary-dark: #1e40af;
+        --accent: #14b8a6;
+        --border: #dbe3ff;
+        --shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: #0f172a;
+      }
+
+      header {
+        background: linear-gradient(120deg, #2563eb 0%, #3b82f6 45%, #14b8a6 100%);
+        color: #fff;
+        padding: 28px 24px 36px;
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      header h1 {
+        margin: 0 0 8px 0;
+        font-size: 2rem;
+      }
+
+      header p {
+        margin: 0;
+        opacity: 0.9;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: -22px auto 40px;
+        padding: 0 24px 32px;
+      }
+
+      .alert {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 12px 16px;
+        border-radius: 10px;
+        margin-bottom: 16px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .card h3 {
+        margin: 0 0 10px 0;
+        font-size: 1.1rem;
+      }
+
+      .card small {
+        color: var(--muted);
+      }
+
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .summary-item {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 12px;
+        border: 1px solid var(--border);
+      }
+
+      .summary-item strong {
+        display: block;
+        font-size: 1.1rem;
+        margin-top: 4px;
+      }
+
+      label {
+        display: block;
+        margin-top: 12px;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      input, select, button {
+        width: 100%;
+        margin-top: 6px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        font-size: 0.95rem;
+      }
+
+      input:focus, select:focus {
+        outline: 2px solid rgba(37, 99, 235, 0.25);
+        border-color: var(--primary);
+      }
+
+      button {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform 0.1s ease, background 0.2s ease;
+      }
+
+      button:hover {
+        background: var(--primary-dark);
+      }
+
+      button.secondary {
+        background: #64748b;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: #e0f2fe;
+        color: #075985;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .badge--member {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .badge--guest {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+
+      .table th, .table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+      }
+
+      .table th {
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .empty {
+        color: var(--muted);
+        font-size: 0.9rem;
+        padding: 10px 0;
+      }
+    </style>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="text/babel" src="app.jsx"></script>
+    <script type="text/babel" src="app.jsx?v=4"></script>
   </body>
 </html>

@@ -203,6 +203,7 @@ function App() {
                 <thead>
                   <tr>
                     <th>Fecha</th>
+                    <th>Socio</th>
                     <th>Monto</th>
                     <th>Tipo</th>
                   </tr>
@@ -211,6 +212,7 @@ function App() {
                   {payments.map((payment) => (
                     <tr key={payment.id}>
                       <td>{payment.paidAt}</td>
+                      <td><span className={`badge ${payment.playerName ? 'badge--member' : 'badge--guest'}`}>{payment.playerName || 'Invitado'}</span></td>
                       <td>S/ {payment.amount}</td>
                       <td><span className="badge">{payment.type}</span></td>
                     </tr>

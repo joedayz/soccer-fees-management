@@ -23,6 +23,15 @@ data class CreateExpenseRequest(
     val description: String
 )
 
+data class PaymentResponse(
+    val id: UUID,
+    val playerId: UUID?,
+    val playerName: String?,
+    val paidAt: LocalDate,
+    val amount: BigDecimal,
+    val type: PaymentType
+)
+
 data class MonthlySummaryResponse(
     val year: Int,
     val month: Int,
