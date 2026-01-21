@@ -6,21 +6,21 @@ import java.time.LocalDate
 import java.util.UUID
 
 data class CreatePlayerRequest(
-    val name: String,
-    val joinedAt: LocalDate
+    val name: String = "",
+    val joinedAt: LocalDate = LocalDate.now()
 )
 
 data class CreatePaymentRequest(
-    val playerId: UUID?,
-    val paidAt: LocalDate,
-    val amount: BigDecimal,
-    val type: PaymentType
+    val playerId: UUID? = null,
+    val paidAt: LocalDate = LocalDate.now(),
+    val amount: BigDecimal = BigDecimal.ZERO,
+    val type: PaymentType = PaymentType.MEMBER_FEE
 )
 
 data class CreateExpenseRequest(
-    val spentAt: LocalDate,
-    val amount: BigDecimal,
-    val description: String
+    val spentAt: LocalDate = LocalDate.now(),
+    val amount: BigDecimal = BigDecimal.ZERO,
+    val description: String = ""
 )
 
 data class PaymentResponse(
